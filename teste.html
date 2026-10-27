@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Autocompletar com JS</title>
+    <style>
+        /* Estilização básica para o dropdown */
+        .autocomplete-container { position: relative; width: 250px; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        .suggestions-box { 
+            position: absolute; width: 100%; border: 1px solid #ccc; 
+            background: white; max-height: 150px; overflow-y: auto; display: none; 
+        }
+        .suggestions-box div { padding: 8px; cursor: pointer; }
+        .suggestions-box div:hover { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+
+    <div class="autocomplete-container">
+        <input type="text" id="busca" placeholder="Digite uma cor...">
+        <div id="sugestoes" class="suggestions-box"></div>
+    </div>
+
+    <script>
+        // Dados para o autocompletar (pode vir de uma API no futuro)
+        const cores = ["Azul", "Amarelo", "Verde", "Vermelho", "Roxo", "Preto", "Branco"];
+        
+        const input = document.getElementById('busca');
+        const caixaSugestoes = document.getElementById('sugestoes');
+
+        input.addEventListener('input', function() {
+            const valor = this.value.toLowerCase();
+            caixaSugestoes.innerHTML = ''; // Limpa as sugestões anteriores
+            
+            if (!valor) {
+                caixaSugestoes.style.display = 'none';
+                return;
+            }
+
+            // Filtra o array baseado no que foi digitado
+            const filtrados = cores.filter(cor => cor.toLowerCase().includes(valor));
+
+            if (filtrados.length > 0) {
+                filtrados.forEach(cor => {
+                    const div = document.createElement('div');
+                    div.textContent = cor;
+                    
+                    // Evento de clique para selecionar a sugestão
+                    div.addEventListener('click', () => {
+                        input.value = cor;
+                        caixaSugestoes.style.display = 'none';
+                    });
+                    
+                    caixaSugestoes.appendChild(div);
+                });
+                caixaSugestoes.style.display = 'block';
+            } else {
+                caixaSugestoes.style.display = 'none';
+            }
+        });
+
+        // Fecha a lista se o usuário clicar fora do input
+        document.addEventListener('click', function(e) {
+            if (e.target !== input) {
+                caixaSugestoes.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
