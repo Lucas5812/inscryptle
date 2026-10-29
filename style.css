@@ -1,0 +1,28 @@
+* {
+  text-align: center;
+  color: white;
+}
+
+.destaque {
+  color: gold;
+}
+
+body{
+  background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/663caea3-2539-4281-aa50-65034133ff54/det11xn-970e8669-2954-4152-bf89-2ae288f1072a.jpg/v1/fill/w_1164,h_687,q_70,strp/inscryption_album_art__by_carpet_crawler_det11xn-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiIvZi82NjNjYWVhMy0yNTM5LTQyODEtYWE1MC02NTAzNDEzM2ZmNTQvZGV0MTF4bi05NzBlODY2OS0yOTU0LTQxNTItYmY4OS0yYWUyODhmMTA3MmEuanBnIiwid2lkdGgiOiI8PTIxNjkifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.ZgimEZaf4ujYYQk9uj1z-gsrPOELSZVd3RHkKD6vYSs);
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+table {
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid white;
+}
+th{
+  color: gold;
+  background-color: gray;
+  border: 1px solid white;
+}
+
