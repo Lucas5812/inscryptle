@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscryptle</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://pyscript.net">
-  <script type="module" src="https://pyscript.net"></script>
 </head>
 <body>
   <!--
@@ -19,66 +17,41 @@
     <h1 class="destaque"> Bem vindo ao Inscryptle</h1>
     <p>Adivinhe a carta de inscryption com base nos seus atributos como vida, poder, sigilos, tribo, etc <br> Cartas novas todo dias às 00:00 UTC</p>    
   </div>
-
   <br>
 
   <div name="Main">
-    <input type="text" placeholder="Digite o nome de uma carta" name="ReqCarta" id="ReqCarta" list="Cartas" style="color: black;">
-    <input type="button" value="ADIVINHE!" name="AdvBtn" id="AdvBtn" style="color: gold; background-color: gray;">
+    <span class="autocomplete-container">
+      <input type="text" placeholder="Digite o nome de uma carta" name="ReqCarta" id="ReqCarta" autocomplete="off" style="color: black;">
+      <div id="sugestoes" class="sugestoesCaixa"></div>
+    </span>
+    <input type="button"  class="botao" value="ADIVINHE!" name="AdvBtn" id="AdvBtn" style="color: gold; background-color: gray;">
+    <span id="mensagem"></span>
     <br><br>
-    <input type="button" value="Venda sua alma(Dica)" style="color: lightcoral; background-color: gray;">
-    <br>
-    <p id="retorno"></p>
-  </div>
-
+    <input type="button" class="botao" value="Venda sua alma - Dica" style="color: lightcoral; background-color: gray;">
+</div>
   <br>
 
   <div name="Tentativas">
     <table name="HistoricoTable" id="HistoricoTable">
-      <tr>
-        <th>
-          Nome
-        </th>
-        <th>
-          poder
-        </th>
-        <th>
-          vida
-        </th>
-        <th>
-          custo
-        </th>
-        <th>
-          sacrifício
-        </th>
-        <th>
-          tribo
-        </th>
-        <th>
-          sigílos
-        </th>
-        <th>
-          traços
-        </th>
-      </tr>
-
-
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>poder</th>
+      <th>vida</th>
+      <th>custo</th>
+      <th>sacrificio</th>
+      <th>tribo</th>
+      <th>sigilos</th>
+      <th>tracos</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
     </table>
   </div>
-
-
-
   <footer>
     <p class="destaque">Criado por: Lucas Leandro e Ronaldo Cesar; ADS 2025.1</p>
   </footer>
-  <datalist id="Cartas">
-    <option value="arminho">
-    <option value="percervejo">
-    <option value="lobo franzino">
-    <option value="lobo filhote">
-    <option value="lobo alfa">
-
-  </datalist>
   <script src="script.js"></script>
 </body>
 </html>
