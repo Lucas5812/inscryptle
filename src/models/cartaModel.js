@@ -39,7 +39,7 @@ class CartaModel {
 
     // Excluir uma carta
     static excluir(id) {
-        const sql = 'DELETE FROM Cartas WHERE id = ?';
+        const sql = 'DELETE FROM Cartas WHERE ID = ?';
 
         return db.prepare(sql).run(id);
     }
@@ -54,7 +54,7 @@ class CartaModel {
     }
 }
 
-console.log("[DEBUG]cartamodel.js carregado")
-console.log(CartaModel.listarTodas())
+console.log("[DEBUG]cartamodel.js carregado");
+console.log(CartaModel.listarTodas());
 
 module.exports = CartaModel;
