@@ -109,6 +109,7 @@ function adicionarLinha(dados) {
   const carta = dados.carta;
   const resultado = dados.resultado;
 
+  
   const tr = document.createElement('tr');
   tr.appendChild(celula(carta.nome));
   tr.appendChild(celula(textoNumero(carta.power, resultado.power), resultado.power));
@@ -158,6 +159,8 @@ async function adivinhar() {
     return;
   }
   adicionarLinha(dados);
+  input.value = '';
+  input.focus();
 
   if (dados.acertou) {
     terminarJogo(dados.carta);
