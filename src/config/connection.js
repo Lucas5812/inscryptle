@@ -19,6 +19,6 @@ const cartas = db.prepare(
 ).all();
 
 console.log(cartas);
-
+module.exports = db;
 // Fecha a conexão quando terminar de utilizar
 //db.close();
