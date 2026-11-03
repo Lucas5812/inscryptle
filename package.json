@@ -1,0 +1,22 @@
+{
+  "name": "inscryptle",
+  "version": "1.0.0",
+  "description": "Um site html para um jogo de adivinhar cartas diárias do ato I de Inscryption",
+  "homepage": "https://github.com/Lucas5812/inscryptle#readme",
+  "bugs": {
+    "url": "https://github.com/Lucas5812/inscryptle/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lucas5812/inscryptle.git"
+  },
+  "author": "Lucas Leandro e Ronaldo Cesar",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
