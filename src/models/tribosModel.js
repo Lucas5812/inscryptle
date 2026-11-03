@@ -8,7 +8,7 @@ class tribosModel {
   }
 
   static buscarPorId(id){
-    const sql = "SELECT * FOM Tribos WHERE ID = ?";
+    const sql = "SELECT * FROM Tribos WHERE ID = ?";
 
     return db.prepare(sql).get(id);
   }
@@ -39,7 +39,6 @@ class tribosModel {
     return db.prepare(sql).run(id);
   }
 }
-
 
 console.log("[DEBUG]tribosModel.js carregado");
 console.log(tribosModel.listarTodas());

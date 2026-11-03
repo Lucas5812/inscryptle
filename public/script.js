@@ -1,46 +1,3 @@
-const AdvBtn = document.getElementById("AdvBtn");
-
-AdvBtn.addEventListener("click", function tentar(){
-    document.getElementById("retorno").textContent = "[ERRO]Banco de dados não conectado";
-})
-
-const usarCartas = true;
-
-const cartasFalsas = [
-  {id: 1, nome: 'Víbora', power: 1, health: 1, costAmount: 2, costType: 'sangue', tribes: ['Réptil'], sigils: ['Toque da Morte'], traits: ['Mata Sobreviventes']},
-  {id: 2, nome: 'Lobo Alfa', power: 1, health: 2, costAmount: 5, costType: 'ossos', tribes: ['Canídeo'], sigils: ['Líder'], traits: []},
-  {id: 33, nome: 'Homem-toupeira', power: 0, health: 6, costAmount: 1, costType: 'sangue', tribes: [], sigils: ['Escavador', 'Salto Pujante'], traits: []},
-  {id: 55, nome: 'Espinha-de-Caribu', power: 1, health: 2, costAmount: 4, costType: 'ossos', tribes: ['Ungulado'], sigils: ['Veloz', 'Toque da Morte'], traits: ['Mata Sobreviventes']},
-  {id: 61, nome: 'Arminho', power: 1, health: 3, costAmount: 1, costType: 'sangue', tribes: [], sigils: [], traits: []},
-];
-
-function sorteia(lista) {
-  return lista[Math.floor(Math.random() * lista.length)];
-}
-
-const cartaCerta = sorteia(cartasFalsas);
-console.log('Carta certa:', cartaCerta.nome);
-
-function comparaNumero(palpite, certa) {
-  if (palpite === certa) {
-    return 'certo';
-  }
-  if (palpite === null || certa === null) {
-    return 'errado';
-  }
-  return palpite < certa ? 'maior' : 'menor';
-}
-
-function comparaLista(a, b) {
-  const emComum = a.filter(function (x) {
-    return b.includes(x);
-  });
-  if (a.length === b.length && emComum.length === a.length) {
-    return 'certo';
-  }
-  return emComum.length ? 'parcial' : 'errado';
-}
-
 function semAcento(s) {
   return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
@@ -50,31 +7,23 @@ function normalizar(s) {
 }
 
 async function buscarCartas() {
-  if (usarCartas) {
-    return cartasFalsas;
+  const resposta = await fetch('/cartas');
+  if (!resposta.ok) {
+    throw new Error('Falha ao carregar as cartas');
   }
+  return resposta.json();
 }
 
 async function enviarPalpite(id) {
-  if (usarCartas) {
-    const carta = cartasFalsas.find(function (c) {
-      return c.id === id;
-    });
-    const s = cartaCerta;
-    return {
-      acertou: carta.id === s.id,
-      carta: carta,
-      resultado: {
-        power: comparaNumero(carta.power, s.power),
-        health: comparaNumero(carta.health, s.health),
-        costAmount: comparaNumero(carta.costAmount, s.costAmount),
-        costType: carta.costType === s.costType ? 'certo' : 'errado',
-        tribes: comparaLista(carta.tribes, s.tribes),
-        sigils: comparaLista(carta.sigils, s.sigils),
-        traits: comparaLista(carta.traits, s.traits),
-      },
-    };
+  const resposta = await fetch('/palpite', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: id }),
+  });
+  if (!resposta.ok) {
+    throw new Error('Falha ao enviar o palpite');
   }
+  return resposta.json();
 }
 
 const input = document.getElementById('ReqCarta');
@@ -110,7 +59,7 @@ function mostrarSugestoes() {
 
   filtradas.forEach(function (c) {
     const div = document.createElement('div');
-    const stats = c.power === null ? 'Var' : c.power;
+    const stats = typeof c.power === 'number' ? c.power : 'Var';
     div.textContent = semAcento(c.nome + ' (' + stats + '/' + c.health + ')');
 
     div.addEventListener('click', function () {
@@ -143,7 +92,7 @@ function celula(texto, classe) {
 }
 
 function textoNumero(valor, status) {
-  const base = valor === null ? 'Variável' : String(valor);
+  const base = String(valor);
   if (status === 'maior') {
     return base + ' ▲';
   }
@@ -152,7 +101,6 @@ function textoNumero(valor, status) {
   }
   return base;
 }
-
 function textoLista(lista) {
   return lista.length ? lista.join(', ') : '-';
 }
@@ -200,9 +148,16 @@ async function adivinhar() {
 
   jaChutados.add(id);
   idSelecionado = null;
-  const dados = await enviarPalpite(id);
+
+  let dados;
+  try {
+    dados = await enviarPalpite(id);
+  } catch (erro) {
+    jaChutados.delete(id);
+    mensagem.textContent = 'Erro ao enviar o palpite. Tente de novo.';
+    return;
+  }
   adicionarLinha(dados);
-  input.value = '';
 
   if (dados.acertou) {
     terminarJogo(dados.carta);
@@ -220,7 +175,10 @@ input.addEventListener('keydown', aoApertarTecla);
 
 // ---------- início ----------
 async function iniciar() {
-  cartas = await buscarCartas();
+  try {
+    cartas = await buscarCartas();
+  } catch (erro) {
+    mensagem.textContent = 'Não foi possível carregar as cartas.';
+  }
 }
-
 iniciar();

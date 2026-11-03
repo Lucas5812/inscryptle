@@ -1,37 +1,41 @@
 const db = require('../config/connection.js');
 
 class desafioModel {
-  static  listarTodas(){
+
+  static dataDeHoje() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  static listarTodas() {
     const sql = "SELECT * FROM DesafiosDiarios";
 
     return db.prepare(sql).all();
   }
 
-  static buscarPorId(id){
+  static buscarPorId(id) {
     const sql = "SELECT * FROM DesafiosDiarios WHERE ID = ?";
 
     return db.prepare(sql).get(id);
   }
 
-  static buscarPorDia(data){
+  static buscarPorDia(data) {
     const sql = 'SELECT * FROM DesafiosDiarios WHERE Date = ?';
 
-    return db.prepare(sql).get(data)
+    return db.prepare(sql).get(data);
   }
 
-  static criar(cartaid){
-    const dia = new Date()
+  // Cria o desafio de um dia (por padrão, hoje)
+  static criar(cartaid, data = desafioModel.dataDeHoje()) {
     const sql = `
     INSERT INTO DesafiosDiarios(Date, CartaID)
     VALUES (?, ?)
     `;
 
-    return db.prepare(sql).run(dia, cartaid);
+    return db.prepare(sql).run(data, cartaid);
   }
 
-
-  static atualizar(id, novadata, novacartaId){
-    const sql =`
+  static atualizar(id, novadata, novacartaId) {
+    const sql = `
     UPDATE DesafiosDiarios
     SET Date = ?, CartaID = ?
     WHERE ID = ?
@@ -40,13 +44,12 @@ class desafioModel {
     return db.prepare(sql).run(novadata, novacartaId, id);
   }
 
-  static excluir(id){
+  static excluir(id) {
     const sql = 'DELETE FROM DesafiosDiarios WHERE ID = ?';
 
     return db.prepare(sql).run(id);
   }
 }
-
 
 console.log("[DEBUG]desafioModel.js carregado");
 console.log(desafioModel.listarTodas());

@@ -1,20 +1,21 @@
-
+const path = require('node:path');
 const express = require('express');
-const { DatabaseSync } = require('node:sqlite');
+const cartaRoutes = require('./src/routes/cartaRoutes.js');
+const jogoRoutes = require('./src/routes/jogoRoutes.js');
 
 const app = express();
-const db = new DatabaseSync('db/dados_antigos.db');
+const PORTA = 3000;
 
-// Rota para consultar todas as cartas
-app.get('/cartas', (req, res) => {
-    const cartas = db.prepare(
-        'SELECT * FROM Cartas'
-    ).all();
+// Permite ler JSON enviado no corpo das requisições (req.body)
+app.use(express.json());
 
-    res.json(cartas);
-});
+// Serve o front-end (index.html, script.js, style.css, fontes)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Inicializa o servidor
-app.listen(3000, () => {
-    console.log('Servidor iniciado na porta 3000');
+// Rotas da API
+app.use('/cartas', cartaRoutes);
+app.use('/palpite', jogoRoutes);
+
+app.listen(PORTA, () => {
+  console.log('Servidor iniciado em http://localhost:' + PORTA);
 });
