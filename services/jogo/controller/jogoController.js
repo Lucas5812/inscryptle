@@ -1,5 +1,5 @@
-const CartaModel = require('../models/cartaModel.js');
 const desafioModel = require('../models/desafioModel.js');
+const jogoClient = require('../clients/jogoClient.js');
 
 function comparaNumero(palpite, certa) {
   if (palpite === certa) {
@@ -33,34 +33,39 @@ function compararCartas(palpite, certa) {
   };
 }
 
-function cartaDoDia() {
+async function cartaDoDia() {
   const hoje = desafioModel.dataDeHoje();
   let desafio = desafioModel.buscarPorDia(hoje);
 
   if (!desafio) {
-    const cartas = CartaModel.listarTodas();
+    const cartas = await jogoClient.listar();
     const sorteada = cartas[Math.floor(Math.random() * cartas.length)];
-    desafioModel.criar(sorteada.ID, hoje);
+    try {
+        desafioModel.criar(sorteada.id, hoje);
+    }
+    catch (erro) {
+
+    }
     desafio = desafioModel.buscarPorDia(hoje);
   }
 
-  return CartaModel.buscarCompletaPorId(desafio.CartaID);
+  return jogoClient.buscarCompletaPorId(desafio.CartaID);
 }
 
 class JogoController {
-  static palpite(req, res) {
+  static async palpite(req, res) {
     try {
       const id = Number(req.body && req.body.id);
       if (!Number.isInteger(id)) {
         return res.status(400).json({ erro: 'Envie o id da carta.' });
       }
 
-      const palpite = CartaModel.buscarCompletaPorId(id);
+      const palpite = await jogoClient.buscarCompletaPorId(id);
       if (!palpite) {
         return res.status(404).json({ erro: 'Carta não encontrada.' });
       }
 
-      const certa = cartaDoDia();
+      const certa = await cartaDoDia();
 
       res.json({
         acertou: palpite.id === certa.id,
