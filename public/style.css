@@ -1,10 +1,15 @@
 * {
   text-align: center;
   color: white;
+  font-family: 'Heavyweight', sans-serif;
 }
 
-.destaque {
-  color: gold;
+@font-face {
+  font-family: 'Heavyweight';
+  src: url('fonts/HEAVYWEI.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 body{
@@ -20,8 +25,60 @@ table {
   margin: 0 auto;
   border: 1px solid white;
 }
+
 th{
   color: gold;
   background-color: gray;
   border: 1px solid white;
+}
+
+td { 
+  border: 1px solid white; 
+  padding: 6px; 
+}
+
+.destaque {
+  color: gold;
+}
+
+.botao {
+  cursor: pointer;
+}
+
+.autocomplete-container {
+  position: relative;
+  display: inline-block;
+}
+
+.sugestoesCaixa {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  z-index: 10;
+  background: #222;
+  border: 1px solid gold;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+
+.sugestoesCaixa div {
+  padding: 6px 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sugestoesCaixa div:hover {
+   background: #444; 
+}
+.certo  { 
+  background: #2e7d32; 
+}
+.parcial { 
+  background: #b58900; 
+}
+.errado, .maior, .menor { 
+  background: #a32020; 
 }
