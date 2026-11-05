@@ -6,19 +6,19 @@ O projeto foi desenvolvido como atividade da disciplina de Desenvolvimento de Si
 
 ## Tecnologias utilizadas
 
-• **HTML5:** Estrutura das páginas.
-• **CSS3:** Estilização e aparência do site.
-• **JavaScript:** Funcionalidades e lógica do jogo.
-• **Node.js:** Execução do servidor.
-• **Express:** Gerenciamento das rotas.
+• **HTML5:** Estrutura das páginas. <br>
+• **CSS3:** Estilização e aparência do site. <br>
+• **JavaScript:** Funcionalidades e lógica do jogo. <br>
+• **Node.js:** Execução do servidor. <br>
+• **Express:** Gerenciamento das rotas. <br>
 
 ## Como executar o projeto
-• O projeto utiliza o Node.js para executar o servidor, por conta disso você terá que acessar o site "https://nodejs.org/en/download" e baixar a versão mais recente.
-• Após baixar o Node e o projeto, abra o terminal e digite "npm install". 
-• A pasta "node_modules" vai aparecer no arquivo local do projeto e novamente no terminal digite "npm start". 
-• Cole o endereço que vai no terminal "http://localhost:3000".
+• O projeto utiliza o Node.js para executar o servidor, por conta disso você terá que acessar o site "https://nodejs.org/en/download" e baixar a versão mais recente. <br>
+• Após baixar o Node e o projeto, abra o terminal e digite "npm install". <br>
+• A pasta "node_modules" vai aparecer no arquivo local do projeto e novamente no terminal digite "npm start". <br>
+• Cole o endereço que vai no terminal "http://localhost:3000". <br>
 
 ## Desenvolvedores
 
-- Lucas Leandro
-- Ronaldo Cesar
+- Lucas Leandro <br>
+- Ronaldo Cesar <br>
